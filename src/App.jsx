@@ -14,7 +14,12 @@ const App = () => {
     setLoading(true); // inicio carga
     api.get('/getItems')
       .then(respuesta => {
-        setUsuarios(respuesta.data.items);
+        if ((respuesta.data.items).length != 0) {
+          setUsuarios(respuesta.data.items);
+        } else {
+          console.log('no hay usuarios')
+        }
+
       })
       .catch(error => {
         console.error('Error al obtener los datos:', error);
@@ -24,8 +29,8 @@ const App = () => {
       });
   }, []); // Evitamos que se vuelva a renderizar con []
 
-  const createUser = (nombre, clave) => {//usamos callback para evitar doble renderizado
-    api.post('/setItem', { nombre, clave })
+  const createUser = (nombre, email) => {//usamos callback para evitar doble renderizado
+    api.post('/setItem', { nombre, email })
       .then(respuesta => {
         const usuarioNuevo = respuesta.data.item;
         setUsuarios(prevUsuarios => [...prevUsuarios, usuarioNuevo]);
@@ -36,9 +41,9 @@ const App = () => {
       });
   }
 
-  const editUser = (id, nombre, clave) => {
-    //console.log('editar usuario: ', id, nombre, clave)
-    api.put('/updateItem', { id, nombre, clave })//editamos usuario de acuerdo a su id
+  const editUser = (id, nombre, email) => {
+    //console.log('editar usuario: ', id, nombre, email)
+    api.put('/updateItem', { id, nombre, email })//editamos usuario de acuerdo a su id
       .then(respuesta => {
         //console.log(respuesta.data.item)
         const usuarioActualizado = respuesta.data.item;
@@ -91,19 +96,23 @@ const App = () => {
         <div className="flex justify-center items-center">
           <Loading />
         </div>
-        :
-        <div className='grid grid-cols-2 md:grid-cols-6 gap-3'>
-          {
-            usuarios.map(usuario => (
-              <GetUser
-                key={usuario.id}
-                usuario={usuario}
-                removeUser={removeUser}
-                setUsuarioSeleccionado={setUsuarioSeleccionado}
-              />
-            ))
-          }
-        </div>
+        : usuarios.length === 0 ?
+          <div className="text-center text-gray-500 col-span-full">
+            No hay usuarios registrados
+          </div>
+          :
+          <div className='grid grid-cols-2 md:grid-cols-6 gap-3'>
+            {
+              usuarios.map(usuario => (
+                <GetUser
+                  key={usuario.id}
+                  usuario={usuario}
+                  removeUser={removeUser}
+                  setUsuarioSeleccionado={setUsuarioSeleccionado}
+                />
+              ))
+            }
+          </div>
       }
     </div>
   );

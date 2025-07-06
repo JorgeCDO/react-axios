@@ -1,5 +1,5 @@
 const GetUser = ({ usuario, setUsuarioSeleccionado, removeUser }) => {
-    const { id, nombre, clave } = usuario;
+    const { id, nombre, email } = usuario;
     return (
         <>
             <article className='flex flex-col items-center gap-6 p-3 rounded-2xl border-2'>
@@ -7,7 +7,7 @@ const GetUser = ({ usuario, setUsuarioSeleccionado, removeUser }) => {
                     {nombre}
                 </span>
                 <span className='font-medium text-sky-500'>
-                    {clave}
+                    {email}
                 </span>
                 <button
                     className="text-sm text-blue-500 hover:underline"

@@ -6,12 +6,12 @@ const CreateUser = ({ createUser, editUser, usuarioSeleccionado, setUsuarioSelec
 
     const [open, setOpen] = useState(false)
     const [nombre, setNombre] = useState('')
-    const [clave, setClave] = useState('')
+    const [email, setEmail] = useState('')
 
     useEffect(() => { //precargamos datos si es que existen
         if (usuarioSeleccionado) {
             setNombre(usuarioSeleccionado.nombre);
-            setClave(usuarioSeleccionado.clave);
+            setEmail(usuarioSeleccionado.email);
             setOpen(true);
         }
     }, [usuarioSeleccionado]);
@@ -19,22 +19,27 @@ const CreateUser = ({ createUser, editUser, usuarioSeleccionado, setUsuarioSelec
     const cerrarModal = () => {
         setOpen(false);
         setNombre('');
-        setClave('');
+        setEmail('');
         setUsuarioSeleccionado(null);
     };
 
     const submitAddUser = (e) => {
         e.preventDefault();
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!nombre.trim() || !clave.trim()) {
-            Swal.fire('Error', 'Faltan nombre o correo', 'error');
+        if (!nombre.trim() || !email.trim()) {
+            Swal.fire('Error', 'No puede haber campos vacios', 'error');
+            return;
+        }
+        if (!regex.test(email)) {
+            Swal.fire('Error', 'El correo no tiene un formato válido.', 'error');
             return;
         }
 
         if (usuarioSeleccionado) {
-            editUser(usuarioSeleccionado.id, nombre, clave);
+            editUser(usuarioSeleccionado.id, nombre, email);
         } else {
-            createUser(nombre, clave);
+            createUser(nombre, email);
         }
 
         cerrarModal(); // limpia después de editar
@@ -83,9 +88,9 @@ const CreateUser = ({ createUser, editUser, usuarioSeleccionado, setUsuarioSelec
 
                                                 <input
                                                     type="text"
-                                                    value={clave}
-                                                    onChange={(e) => setClave(e.target.value)}
-                                                    placeholder="Clave"
+                                                    value={email}
+                                                    onChange={(e) => setEmail(e.target.value)}
+                                                    placeholder="Email"
                                                     className="text-center text-gray-500 outline-none shadow-md border-1 border-gray-300 rounded-2xl ps-2 py-1"
                                                 />
                                             </div>
