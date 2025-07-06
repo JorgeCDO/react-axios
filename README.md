@@ -2,7 +2,7 @@
 
 ## Como usar
 
-``bash
+```bash
 composer install
 composer install
 npm install
