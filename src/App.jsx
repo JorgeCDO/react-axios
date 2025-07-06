@@ -24,7 +24,7 @@ const App = () => {
       });
   }, []); // Evitamos que se vuelva a renderizar con []
 
-  const createUser = useCallback((nombre, clave) => {//usamos callback para evitar doble renderizado
+  const createUser = (nombre, clave) => {//usamos callback para evitar doble renderizado
     api.post('/setItem', { nombre, clave })
       .then(respuesta => {
         const usuarioNuevo = respuesta.data.item;
@@ -34,9 +34,9 @@ const App = () => {
         console.error('Error al crear el usuario:', error);
         Swal.fire('Error', 'Error al crear el usuario', 'error');
       });
-  }, [])
+  }
 
-  const editUser = useCallback((id, nombre, clave) => {
+  const editUser = (id, nombre, clave) => {
     //console.log('editar usuario: ', id, nombre, clave)
     api.put('/updateItem', { id, nombre, clave })//editamos usuario de acuerdo a su id
       .then(respuesta => {
@@ -50,7 +50,7 @@ const App = () => {
         console.error('Error al editar el usuario:', error);
         Swal.fire('Error', 'Error al editar el usuario', 'error');
       });
-  }, []);
+  }
 
   const removeUser = (id) => {
     Swal.fire({
