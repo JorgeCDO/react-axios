@@ -6,21 +6,23 @@ const GetUser = ({ usuario, setUsuarioSeleccionado, removeUser }) => {
                 <span className='text-2xl font-medium'>
                     {nombre}
                 </span>
-                <span className='font-medium text-sky-500'>
+                <span className='text-sm text-sky-500'>
                     {email}
                 </span>
-                <button
-                    className="text-sm text-blue-500 hover:underline"
-                    onClick={() => setUsuarioSeleccionado(usuario)}
-                >
-                    Editar
-                </button>
-                <button
-                    className="text-sm text-red-500 hover:underline"
-                    onClick={() => removeUser(id)}
-                >
-                    Eliminar
-                </button>
+                <div className="flex justify-between gap-4">
+                    <button
+                        className="font-semibold text-sm text-white bg-purple-600 p-2 rounded-lg cursor-pointer hover:bg-purple-900"
+                        onClick={() => setUsuarioSeleccionado(usuario)}
+                    >
+                        Editar
+                    </button>
+                    <button
+                        className="font-semibold text-sm text-white bg-red-600 p-2 rounded-lg cursor-pointer hover:bg-red-900"
+                        onClick={() => removeUser(id)}
+                    >
+                        Eliminar
+                    </button>
+                </div>
             </article>
         </>
     )
