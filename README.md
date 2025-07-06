@@ -3,6 +3,6 @@
 ## Como usar
 
 ```bash
-composer install
-composer install
-npm install
+- clonar el repositorio
+- composer install
+- npm install
