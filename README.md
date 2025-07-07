@@ -5,3 +5,4 @@
 ```bash
 - clonar el repositorio
 - npm install
+- npm run dev
