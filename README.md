@@ -4,5 +4,4 @@
 
 ```bash
 - clonar el repositorio
-- composer install
 - npm install
