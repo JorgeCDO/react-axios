@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import GetUser from "./assets/components/GetUser"
 import api from "./assets/api/api"
 import CreateUser from './assets/components/CreateUser';
@@ -68,7 +68,7 @@ const App = () => {
       confirmButtonText: "Si, borrarlo!"
     }).then((result) => {
       if (result.isConfirmed) {
-        api.delete('/deleteInsumo', { data: { id } }) // `data` es obligatorio aquí
+        api.delete('/deleteInsumo', { data: { id } })
           .then(() => {
             setUsuarios(prevUsuarios => prevUsuarios.filter(usuario => usuario.id !== id));
             Swal.fire('¡Eliminado!', 'El usuario ha sido eliminado.', 'success');
